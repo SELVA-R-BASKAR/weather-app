@@ -1,0 +1,77 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div>
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h4 class="text-center"><b>Weather App</b></h4>
+                    </div>
+                    <div class="card-body">
+                        <fieldset class="pb-5">
+                            <legend><b>Add a Location</b></legend>
+                            <div class="row">
+                                <div class="col-xs-5" style="margin: 15px 15px 5px 55px">
+                                    <label>Enter a Zipcode</label>
+                                    <input class="form-control" placeholder="Please Enter Zipcode" type="number"
+                                        maxlength="6" [(ngModel)]="zipCode" id="addLocation" />
+                                </div>
+                                <div class="col-xs-5">
+                                    <br />
+                                    <button class="btn btn-primary" style="margin: 19px 0px 0px 15px;"
+                                        id="addLocationBtn" (click)="getCurrentWeatherZipCode(zipCode)">
+                                        Add location
+                                    </button>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="row" style="margin-top: 15px;">
+                            <div *ngFor="let data of currentWeatherData; let i = index"
+                                class="mt-4 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="well flex">
+                                    <fieldset>
+                                        <legend><b>{{ data.name }} ({{ data.zipcode }})</b></legend>
+                                        <div class="weatherArea p-3">
+                                            <div class="row">
+                                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                                    <h6><small>Current Conditions: <span class="text-success">{{
+                                                                data.weather[0].main }}</span></small></h6>
+                                                    <h6><small>Temperature:</small></h6>
+                                                    <p>
+                                                        Current {{ data.main.temp - 273.15 | number: "1.0-0" }}℃ -
+                                                        Max today
+                                                        {{ data.main.temp_max - 273.15 | number: "1.0-0" }}℃ - Min today
+                                                        {{ data.main.temp_min - 273.15 | number: "1.0-0" }}℃
+                                                    </p>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                                    <img class="weather-img"
+                                                        *ngIf="data.weather[0].main != 'Clear' && data.weather[0].main != 'Haze'"
+                                                        src="https://www.angulartraining.com/images/weather/{{
+                                          data.weather[0].main | lowercase
+                                        }}.png" />
+                                                    <img class="weather-img" *ngIf="data.weather[0].main === 'Haze'"
+                                                        src="https://www.angulartraining.com/images/weather/snow.png" />
+
+                                                    <img class="weather-img" *ngIf="data.weather[0].main === 'Clear'"
+                                                        src="https://www.angulartraining.com/images/weather/sun.png" />
+                                                    <span class="close h4" (click)="remove(data.zipcode)"
+                                                        title="Remove">×</span>
+                                                </div>
+                                                <div class="col-12" style="margin-left: 15px;">
+
+                                                    <a [routerLink]="['/forecast', data.zipcode]"
+                                                        routerLinkActive="router-link-active"><b>Show
+                                                            5-day forecast for {{ data.name }}</b></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

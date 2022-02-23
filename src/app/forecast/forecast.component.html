@@ -1,0 +1,39 @@
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div>
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <h4 class="text-center"><b>Forecast</b></h4>
+                        </div>
+                        <div class="card-body">
+                            <fieldset class="pb-3">
+                                <legend><b>{{forecastData?.city?.name}}</b></legend>
+                                <div class="forecast">
+                                    <ul class="list-group " *ngIf="forecastData && forecastData.list.length > 0">
+                                        <ng-container *ngFor="let data of forecastData.list; let i=index">
+                                            <li class="list-group-item" *ngIf="i !== 0 && i < 6">
+                                                {{data.dt_txt | date: 'EEEE, MMM d'}}:
+                                                {{data.weather[0].main}}
+                                                - Min: {{(data.temp.min-273.15)| number : '1.0-0'}}℃
+                                                - Max: {{(data.temp.max-273.15)| number : '1.0-0'}}℃
+                                                <img class="icon" *ngIf="data.weather[0].main !=='Clear'"
+                                                    src="https://www.angulartraining.com/images/weather/{{data.weather[0].main | lowercase}}.png">
+                                                <img class="icon" *ngIf="data.weather[0].main ==='Clear'"
+                                                    src="https://www.angulartraining.com/images/weather/sun.png">
+                                        </ng-container>
+                                    </ul>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-success" tabindex="0" [routerLink]="['/']"
+                                routerLinkActive="router-link-active" id="mainPageBtn">Back to Home Page</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

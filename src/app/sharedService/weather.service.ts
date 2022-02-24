@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ForecastData } from '../forecast/forecast.component';
+import { CurrentWeather } from '../weather/weather.component';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +14,11 @@ export class WeatherService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getCurrentWeather(zipCode:string){
-    return this.httpClient.get(this.apiWeatherMap + 'weather?zip='+zipCode+',in&appid='+this.token);
+  getCurrentWeather(zipCode:string): Observable<CurrentWeather> {
+    return this.httpClient.get<CurrentWeather>(this.apiWeatherMap + 'weather?zip='+zipCode+',in&appid='+this.token);
   }
   
-  getForecastWeather(zipCode:string) {
-    return this.httpClient.get(this.apiWeatherMap + 'forecast/daily?zip='+zipCode+',in&appid='+this.token);
+  getForecastWeather(zipCode:string): Observable<ForecastData> {
+    return this.httpClient.get<ForecastData>(this.apiWeatherMap + 'forecast/daily?zip='+zipCode+',in&appid='+this.token);
   }
 }

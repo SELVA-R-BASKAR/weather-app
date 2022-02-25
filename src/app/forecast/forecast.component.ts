@@ -62,7 +62,7 @@ export interface Weather {
 })
 export class ForecastComponent implements OnInit {
 
-  zipCode!: string;
+  zipCode: string = '';
   forecastData!: ForecastData;
   constructor(
     private activatedroute: ActivatedRoute,

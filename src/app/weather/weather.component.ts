@@ -45,7 +45,7 @@ export interface CurrentWeather {
 })
 export class WeatherComponent implements OnInit {
 
-  currentWeatherData!: CurrentWeather[];
+  currentWeatherData: CurrentWeather[] = [];
   zipCode: string = '';
 
   constructor(private weatherService: WeatherService,
